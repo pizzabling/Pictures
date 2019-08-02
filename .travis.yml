@@ -1,0 +1,12 @@
+language: java
+jdk: openjdk12
+script: ./mvnw -e verify
+install:	
+  - mvn -N io.takari:maven:wrapper	
+  - ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: heroku
+  api_key: $HEROKU_KEY
+  app: pictureitpark
